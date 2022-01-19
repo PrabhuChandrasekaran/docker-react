@@ -36,7 +36,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: react-app
-        path: /tmp
+        path: /tmp/react-app.tar
     - name: Load Docker Image
       run: |
         docker load --input /tmp/react-app.jar
