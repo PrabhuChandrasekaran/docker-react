@@ -25,6 +25,8 @@ jobs:
         file: Dockerfile.dev
         tags: prabhutech37/react-app
         outputs: type=docker, dest=/tmp/react-app.tar
+    - name: List the Created file
+      run: ls -latr /tmp/
         
   test:
     needs: build
