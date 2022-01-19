@@ -24,21 +24,22 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: react-app
-        path: /tmp/react-app.tar 
+        path: /tmp/react-app.tar
+        retention-days: 1
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Setup Buildx Docker
-      uses: docker/setup-buildx-action@v1
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
         name: react-app
         path: /tmp/
+    - name: Setup Buildx Docker
+      uses: docker/setup-buildx-action@v1    
     - name: Load Docker Image
       run: |
-        sudo docker load --input /tmp/react-app.jar
-        sudo docker image ls -a
+        docker load --input /tmp/react-app.jar
+        docker image ls -a
     - name: Run the test cases
-      run: sudo docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
+      run: docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
