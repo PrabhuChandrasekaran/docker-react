@@ -38,11 +38,9 @@ jobs:
       with:
         name: react-app
         path: /tmp/react-app.jar
-    - name: List the file
-      run: ls -latr /tmp/ && ls -R /tmp
     - name: Load Docker Image
       run: |
-        docker load --input /tmp/react-app.jar
-        docker image ls -a
+        sudo docker load --input /tmp/react-app.jar
+        sudo docker image ls -a
     - name: Run the test cases
-      run: docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
+      run: sudo docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
