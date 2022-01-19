@@ -12,6 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile.dev --tag prabhutech37/react-app
+      run: docker build . -file Dockerfile.dev -t prabhutech37/react-app
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Run the test cases
       run: docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
