@@ -36,7 +36,7 @@ jobs:
         name: react-app
         path: /tmp/
     - name: List the downloaded files
-      run: ls -latr /tmp/react-app.jar && ls -latr /tmp
+      run: ls -latr /tmp
     - name: Setup Buildx Docker
       uses: docker/setup-buildx-action@v1    
     - name: Load Docker Image
