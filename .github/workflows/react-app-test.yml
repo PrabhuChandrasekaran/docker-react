@@ -14,4 +14,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile.dev --tag prabhutech37/react-app
     - name: Run the test cases
-      run: docker run prabhutech37/react-app npm run coverage
+      run: docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
