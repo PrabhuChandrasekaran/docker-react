@@ -1,0 +1,17 @@
+name: Testing Docker NPM 
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile.dev --tag prabhutech37/react-app:$(date +%s)
+    - name: Run the test cases
+      run: docker run prabhutech37/react-app:$(date +%s) npm run test -- --coverage
