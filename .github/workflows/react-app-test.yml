@@ -65,3 +65,4 @@ jobs:
       run: | 
         docker load --input /tmp/react-app.tar
         docker push prabhutech37/react-app:latest
+    #Test the file again
