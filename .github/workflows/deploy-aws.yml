@@ -3,6 +3,7 @@ name: Deploy on AWS
 on:
   push:
     branches: [ master ]
+jobs:
   deploy:
     # Deploy to AWS Elastic BeanStalk
     runs-on: ubuntu-latest
