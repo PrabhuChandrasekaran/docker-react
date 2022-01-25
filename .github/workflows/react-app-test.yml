@@ -44,7 +44,27 @@ jobs:
     # Testing the changes
     - name: Run the test cases
       run: docker run -e CI=true prabhutech37/react-app npm run test -- --coverage
+  deploy:
+    # Deploy to AWS Elastic BeanStalk
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the branch
+        uses: actions/checkout@v2
+      - name: Create the artifact to push AWS
+        run: zip -r deploy.zip . -x 'README.*' '*.git*' 'public/**'
+      - name: Deploy to Elastic BeanStalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: docker-react-app
+          environment_name: Dockerreactapp-env
+          version_label: ver_1
+          region: us-east-1
+          deployment_package: deploy.zip
 #  deploy:
+# Depoyment for pushing the image to Docker Hub
 #    needs: test
 #    runs-on: ubuntu-latest
 #    steps:
