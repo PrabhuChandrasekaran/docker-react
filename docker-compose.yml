@@ -3,17 +3,6 @@ services:
   react-app-web:
     build: 
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "80:80"
-    volumes:
-      - /app/node_modules
-      - .:/app
-  react-app-test:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - .:/app
-    command: ["npm", "run", "test"]
