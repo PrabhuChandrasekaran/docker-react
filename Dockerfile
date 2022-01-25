@@ -7,4 +7,5 @@ RUN mkdir /app/node_modules/.cache && chown -R node /app/node_modules/.cache
 RUN npm run build
 
 FROM nginx:alpine
+EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
