@@ -52,7 +52,18 @@ jobs:
       - name: Checkout the branch
         uses: actions/checkout@v2
       - name: Create the artifact to push AWS
-        run: zip -r deploy.zip . -x 'README.*' '*.git*' 'public/**'
+        run: zip -r deploy.zip . -x 'README.*' '*.git*' 'public/'
+      - name: Get Timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+      - name: Run string replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: '-'
+          flags: 'g'
       - name: Deploy to Elastic BeanStalk
         uses: einaregilsson/beanstalk-deploy@v20
         with:
@@ -60,7 +71,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: docker-react-app
           environment_name: Dockerreactapp-env
-          version_label: ver_1
+          version_label: "react-app-${{ steps.format-time.outputs.replaced}}"
           region: us-east-1
           deployment_package: deploy.zip
 #  deploy:
